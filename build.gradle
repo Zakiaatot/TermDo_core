@@ -1,0 +1,58 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdk 28
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        // 增加cmake控制属性
+        externalNativeBuild {
+            cmake {
+                // 指定编译架构
+                abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'
+            }
+        }
+    }
+    // 指定CMakeLists.txt路径
+    externalNativeBuild {
+        cmake {
+            // 在该文件种设置所要编写的c源码位置，以及编译后so文件的名字
+            path 'CMakeLists.txt'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    ndkVersion '22.1.7171670'
+    sourceSets {
+        main {
+            jni {
+                srcDirs 'src\\main\\jni'
+            }
+        }
+    }
+
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    // uniapp
+    compileOnly 'androidx.recyclerview:recyclerview:1.2.1'
+    compileOnly 'androidx.legacy:legacy-support-v4:1.0.0'
+    compileOnly 'androidx.appcompat:appcompat:1.6.0'
+
+    compileOnly fileTree(include: ['uniapp-v8-release.aar'], dir: '../app/libs')
+
+}
