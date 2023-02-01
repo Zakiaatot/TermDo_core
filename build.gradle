@@ -1,14 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdk 28
+    compileSdk 32
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion 21
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         // 增加cmake控制属性
         externalNativeBuild {
